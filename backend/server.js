@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import { connectDB } from './config/db.js';
 import Product from './models/product.model.js';
 
@@ -39,6 +40,22 @@ app.post("/api/products", async (req, res) => {
     } catch (error) {
         console.log(`Error message: ${error.message}`);
         return res.status(500).json({success: false, message: "Server error"});
+    }
+});
+
+app.post("/api/products/:id", async (req, res) => {
+    const {id} = req.params;
+    const product = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({success: "false", message: "Please enter a valid id"});
+    }
+
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(id, product, {new: true});
+        return res.status(201).json({success: true, message: updatedProduct});
+    } catch (error) {
+        return res.status(500).json({success: false, message: "Internal server error"});
     }
 });
 
