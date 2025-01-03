@@ -13,6 +13,16 @@ app.get("/", (req, res) => {
     res.send('Server is ready');
 });
 
+app.get("/api/products", async (req, res) => {
+    try {
+        const products = await Product.find({}); // findAll
+        return res.status(201).json({success: true, message: products})
+    } catch (error) {
+        console.log(`Error: ${error.message}`);
+        return res.status(500).json({success: false, message: "Error fetching products"})
+    }
+});
+
 app.post("/api/products", async (req, res) => {
     const product = req.body; // user will send the data
 
@@ -39,7 +49,7 @@ app.delete("/api/products/:id", async (req, res) => {
         return res.status(200).json({success:true, message: "Successfully deleted"});
     } catch (error) {
         console.log(`Error: ${error.message}`)
-        return res.status(500).json({success:false, message: "Cannot find product"});
+        return res.status(404).json({success:false, message: "Cannot find product"});
     }
 });
 
