@@ -15,14 +15,12 @@ export const useProductStore = create((set) => ({
             body: JSON.stringify(newProduct)
         })
         const data = await res.json();
-        set((state) => ({
-            products:[...state.products, data.data]
-        }));
+        set((state) => ({ products: [...state.products, data.data] }));
         return {success: true, message:"Product created successfully"}
     },
     fetchProducts: async () => {
 		const res = await fetch("/api/products");
 		const data = await res.json();
-		set({ products: data.data });
-	},
+		set({ products: data.data});
+	}
 }));

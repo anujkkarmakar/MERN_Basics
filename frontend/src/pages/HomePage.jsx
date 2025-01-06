@@ -1,15 +1,15 @@
 import { Container, VStack, Text, SimpleGrid } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useProductStore } from "../store/product";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const { fetchProducts, products } = useProductStore();
 
-	useEffect(() => {
-		fetchProducts();
-	}, [fetchProducts]);
-	console.log("products", products);
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+  console.log("Products: ", products);
 
   return (
     <Container maxW={"container.xl"} py={12}>
