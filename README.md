@@ -144,4 +144,4 @@ mern-stack-basics/
 
 ## License
 
-This project is licensed under the ISC License - see the package.json file for details.
+This project is licensed under the [ISC LICENSE](LICENSE) - see the package.json file for details.
