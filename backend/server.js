@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import productRoutes from './routes/products.route.js';
 import path from "path";
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
@@ -13,6 +14,13 @@ const __dirname = path.resolve();
 
 app.use(express.json()); // allows us to accept JSON as respone body
 
+const limiter = rateLimit({
+	windowMs: 10 * 60 * 1000, // 10 minutes
+	max: 10, // limit each IP to 100 requests
+	message: "Too many requests, please try again later.",
+});
+
+app.use("/api/", limiter)
 app.use("/api/products", productRoutes)
 
 if (process.env.NODE_ENV === "production") {
