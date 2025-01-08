@@ -16,7 +16,7 @@ app.use(express.json()); // allows us to accept JSON as respone body
 
 const limiter = rateLimit({
 	windowMs: 10 * 60 * 1000, // 10 minutes
-	max: 10, // limit each IP to 100 requests
+	max: 10, // limit each IP to 10 requests
 	message: "Too many requests, please try again later.",
 });
 
